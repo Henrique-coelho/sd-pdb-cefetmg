@@ -1,17 +1,18 @@
 #!/bin/bash
 
-# pdb="../pdb6h6g.ent"
+# pdb="pdb1bm0.ent"
 # res1="LYS"
 # atm1="NZ"
 # resn1="16"
 # res2="SER"
 # atm2="OG"
 # resn2="8"
+# cutoff=1
 
 # file path and name
 pdb=$1
 
-# information about interactor 1
+# # information about interactor 1
 res1=$2
 atm1=$3
 resn1=$4
@@ -45,8 +46,11 @@ if [ $sim -eq 1 ]; then
   echo "$distance <= $cutoff";
 
   # recovering info from the protein and save in new file
-  egrep "^CRYST1" $pdb > pdbNew.ent;
-  egrep "^SCALE" $pdb >> pdbNew.ent;
+  # Create the file with the specified name pattern
+  filename="${resn1}${res1}-${atm1}_${resn2}${res2}-${atm2}.ent"
+
+  egrep "^CRYST1" $pdb > $filename;
+  egrep "^SCALE" $pdb >> $filename;
 
   # set numbers of past and future aminoacids related to interactor 1
   resn1p=`echo "$resn1-1" | bc`;
@@ -57,10 +61,10 @@ if [ $sim -eq 1 ]; then
   resn2f=`echo "$resn2+1" | bc`;
 
   # recovering rows of interactors and theirs related. Then save it
-  egrep "^ATOM *[0-9]+ *[A-Z]+[0-9]* *[A-Z]+[0-9]* *A *($resn1p|$resn1|$resn2f|$resn2p|$resn2|$resn2f)" $pdb >> pdbNew.ent;
+  egrep "^ATOM *[0-9]+ *[A-Z]+[0-9]* *[A-Z]+[0-9]* *A *($resn1p|$resn1|$resn2f|$resn2p|$resn2|$resn2f)" $pdb >> $filename;
 
   # end of pdb file by default for new interaction file
-  echo "END" >> pdbNew.ent;
+  echo "END" >> $filename;
 else
   # there's no interaction
   echo "$distance > $cutoff";
