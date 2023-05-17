@@ -14,26 +14,16 @@ ARG NH1:TYR OH:3.2:Ligação de Hidrogênio (lateral positivo - lateral quase do
 ARG NH2:SER OG:3.2:Ligação de Hidrogênio (lateral positivo - lateral quase doador)
 ARG NH2:THR OG1:3.2:Ligação de Hidrogênio (lateral positivo - lateral quase doador)
 ARG NH2:TYR OH:3.2:Ligação de Hidrogênio (lateral positivo - lateral quase doador)
-LYS NZ:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-LYS NZ:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-HIS ND1:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-HIS ND1:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-HIS NE2:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-HIS NE2:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-ARG NH1:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-ARG NH1:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-ARG NH2:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
-ARG NH2:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor
-Lateral)
+LYS NZ:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+LYS NZ:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+HIS ND1:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+HIS ND1:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+HIS NE2:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+HIS NE2:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+ARG NH1:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+ARG NH1:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+ARG NH2:ASN OD1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
+ARG NH2:GLN OE1:3.2:Ligação de Hidrogênio (lateral positivo - receptor Lateral)
 TRP NE1:SER OG:3.2:Ligação de Hidrogênio (doador lateral – lateral quase doador)
 TRP NE1:THR OG1:3.2:Ligação de Hidrogênio (doador lateral – lateral quase doador)
 TRP NE1:TYR OH:3.2:Ligação de Hidrogênio (doador lateral – lateral quase doador)
@@ -43,54 +33,30 @@ ASN ND2:TYR OH:3.2:Ligação de Hidrogênio (doador lateral – lateral quase do
 GLN NE2:SER OG:3.2:Ligação de Hidrogênio (doador lateral – lateral quase doador)
 GLN NE2:THR OG1:3.2:Ligação de Hidrogênio (doador lateral – lateral quase doador)
 GLN NE2:TYR OH:3.2:Ligação de Hidrogênio (doador lateral – lateral quase doador)
-TRP NE1:ASN OD1:3.2:Ligação de Hidrogênio (doador lateral – receptor
-Lateral)
-TRP NE1:GLN OE1:3.2:Ligação de Hidrogênio (doador lateral – receptor
-Lateral)
-ASN ND2:ASN OD1:3.2:Ligação de Hidrogênio (doador lateral – receptor
-Lateral)
-ASN ND2:GLN OE1:3.2:Ligação de Hidrogênio (doador lateral – receptor
-Lateral)
-GLN NE2:ASN OD1:3.2:Ligação de Hidrogênio (doador lateral – receptor
-Lateral)
-GLN NE2:GLN OE1:3.2:Ligação de Hidrogênio (doador lateral – receptor
-Lateral)
-TRP NE1:ASP OD1:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-TRP NE1:ASP OD2:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-TRP NE1:GLU OE1:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-TRP NE1:GLU OE2:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-ASN ND2:ASP OD1:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-ASN ND2:ASP OD2:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-ASN ND2:GLU OE1:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-ASN ND2:GLU OE2:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-GLN NE2:ASP OD1:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-GLN NE2:ASP OD2:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-GLN NE2:GLU OE1:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-GLN NE2:GLU OE2:3.2:Ligação de Hidrogênio (doador lateral – lateral
-Negativo)
-SER OG:ASN OD1:3.2:Ligação de Hidrogênio (lateral quase doador –
-receptor lateral)
-SER OG:GLN OE1:3.2:Ligação de Hidrogênio (lateral quase doador –
-receptor lateral)
-THR OG1:ASN OD1:3.2:Ligação de Hidrogênio (lateral quase doador –
-receptor lateral)
-THR OG1:GLN OE1:3.2:Ligação de Hidrogênio (lateral quase doador –
-receptor lateral)
-TYR OH:ASN OD1:3.2:Ligação de Hidrogênio (lateral quase doador –
-receptor lateral)
-TYR OH:GLN OE1:3.2:Ligação de Hidrogênio (lateral quase doador –
-receptor lateral)
+TRP NE1:ASN OD1:3.2:Ligação de Hidrogênio (doador lateral – receptor Lateral)
+TRP NE1:GLN OE1:3.2:Ligação de Hidrogênio (doador lateral – receptor Lateral)
+ASN ND2:ASN OD1:3.2:Ligação de Hidrogênio (doador lateral – receptor Lateral)
+ASN ND2:GLN OE1:3.2:Ligação de Hidrogênio (doador lateral – receptor Lateral)
+GLN NE2:ASN OD1:3.2:Ligação de Hidrogênio (doador lateral – receptor Lateral)
+GLN NE2:GLN OE1:3.2:Ligação de Hidrogênio (doador lateral – receptor Lateral)
+TRP NE1:ASP OD1:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+TRP NE1:ASP OD2:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+TRP NE1:GLU OE1:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+TRP NE1:GLU OE2:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+ASN ND2:ASP OD1:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+ASN ND2:ASP OD2:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+ASN ND2:GLU OE1:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+ASN ND2:GLU OE2:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+GLN NE2:ASP OD1:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+GLN NE2:ASP OD2:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+GLN NE2:GLU OE1:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+GLN NE2:GLU OE2:3.2:Ligação de Hidrogênio (doador lateral – lateral Negativo)
+SER OG:ASN OD1:3.2:Ligação de Hidrogênio (lateral quase doador – receptor lateral)
+SER OG:GLN OE1:3.2:Ligação de Hidrogênio (lateral quase doador – receptor lateral)
+THR OG1:ASN OD1:3.2:Ligação de Hidrogênio (lateral quase doador – receptor lateral)
+THR OG1:GLN OE1:3.2:Ligação de Hidrogênio (lateral quase doador – receptor lateral)
+TYR OH:ASN OD1:3.2:Ligação de Hidrogênio (lateral quase doador – receptor lateral)
+TYR OH:GLN OE1:3.2:Ligação de Hidrogênio (lateral quase doador – receptor lateral)
 SER OG:ASP OD1:3.2:Ligação de Hidrogênio (lateral quase doador - lateral negativo)
 SER OG:ASP OD2:3.2:Ligação de Hidrogênio (lateral quase doador - lateral negativo)
 SER OG:GLU OE1:3.2:Ligação de Hidrogênio (lateral quase doador - lateral negativo)
@@ -103,43 +69,23 @@ TYR OH:ASP OD1:3.2:Ligação de Hidrogênio (lateral quase doador - lateral nega
 TYR OH:ASP OD2:3.2:Ligação de Hidrogênio (lateral quase doador - lateral negativo)
 TYR OH:GLU OE1:3.2:Ligação de Hidrogênio (lateral quase doador - lateral negativo)
 TYR OH:GLU OE2:3.2:Ligação de Hidrogênio (lateral quase doador - lateral negativo)
-ASP OD1:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD1:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD1:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD1:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD1:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD2:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD2:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD2:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD2:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-ASP OD2:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE1:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE1:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE1:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE1:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE1:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE2:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE2:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE2:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE2:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
-GLU OE2:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral
-Positivo)
+ASP OD1:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD1:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD1:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD1:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD1:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD2:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD2:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD2:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD2:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+ASP OD2:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE1:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE1:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE1:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE1:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE1:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral positivo)
+GLU OE2:LYS NZ:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE2:HIS NE1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE2:HIS NE2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE2:ARG NH1:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
+GLU OE2:ARG NH2:6.0:Interação Eletrostática Atrativa (lateral negativo - lateral Positivo)
