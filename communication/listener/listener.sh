@@ -12,6 +12,15 @@ receive_file() {
     nc -l -p $port > received_file.txt
 }
 
+# Function to decrypt a file
+# Input parameter = file.txt.gpg
+decrypt_file() {
+    local file=$1
+    file_without_extension="$(egrep "(.+?)(.[^.]*$|$)")"
+    gpg --decrypt --output $file_without_extension $file
+    echo "File $file decrypted successfully!"
+} 
+
 ## Abaixo existe apenas um exemplo do uso das funcoes
 # # Set the port number for listening
 # receiver_port="12345"  # Replace with the port number you want to listen on
