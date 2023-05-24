@@ -51,6 +51,8 @@ distance=`echo "scale=3;sqrt(($x1-($x2))^2+($y1-($y2))^2+($z1-($z2))^2)" | bc`
 echo "A distância entre $res1 $atm1 $resn1 x($x1), y($y1), z($z1) e $res2 $atm2 $resn2 x($x2), y($y2), z($z2) = $distance"
 
 # comparing distance with cutoff
+
+#daqui para baixo foi o que o grupo entendeu que deveria ser o gera arquivo
 sim=`echo "$distance<=$cutoff" | bc`
 if [ $sim -eq 1 ]; then
   # there's interaction

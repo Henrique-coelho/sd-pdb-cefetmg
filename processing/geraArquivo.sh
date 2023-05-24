@@ -1,7 +1,8 @@
 #!/bin/bash
 
+#conversar melhor com o grupo de namming para entender melhor o que foi proposto para que pudessemos relacionar as ideias
 if [ $# -lt 8 ]
-then    echo "Ops! Deu ruim!" 
+then echo "Ops! Deu ruim!" 
 	echo "Sintaxe:\n$0 ResNumb1 ResNumb2 ResNumb3 ResNumb4 ResNumb5 ResNumb6 PDBFile InteractionFile\n\n"
 	exit
 fi
