@@ -15,7 +15,7 @@ usage ()
   exit;
 }
 
-if [ "$#" -ne 8 ]
+if [ "$#" -ne 8 ];
 then
   usage;
 fi

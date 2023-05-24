@@ -4,10 +4,17 @@ usage ()
   exit;
 }
 
-if [ "$#" -ne 6 ]
+if [ "$#" -ne 6 ];
 then
   usage;
 fi
+
+pids=()
+max_processos=5 # procurar time de arquitura para definimos qual sera o maximo de instancias possiveis
+
+executar_processo() {
+  ./distanceCalculatorFileGenerator.sh $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff
+}
 
 # file path
 pdb=$1
@@ -27,21 +34,51 @@ atm2=$5
 #   done;
 # done;
 
+
+# verificar forma de tentar deixar a execucao em paralelo, para melhorar a perfomance do codigo
 # resn1 candidates
 vet_resn1=()
-for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $1 | awk '{ print substr($0,23,4) }'`; do 
-  vet_resn1+=($resn1);
-done;
+for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $1 | awk '{ print substr($0,23,4) }'`; do
+  #verifica se o valor nao e nulo para adicionar o valor no vetor
+  if [ ! -z "$resn1" ];
+  then
+    vet_resn1+=($resn1);
+  fi
+done
 
-# resn2 candidates
-vet_resn2=()
-for resn2 in `egrep "^ATOM *[0-9]+ *$atm2 *$res2 *A" $1 | awk '{ print substr($0,23,4) }'`; do
-  vet_resn2+=($resn2);
-done;
+#verifica se tem valor no primeiro vetor para executar a verificacao de res2
+if [ ${#vet_resn1[@]} -gt 0 ];
+then
+  # resn2 candidates
+  vet_resn2=()
+  for resn2 in `egrep "^ATOM *[0-9]+ *$atm2 *$res2 *A" $1 | awk '{ print substr($0,23,4) }'`; do
+    #verifica se o valor nao e nulo para adicionar o valor no vetor
+    if [ ! -z "$resn2" ];
+    then
+      vet_resn2+=($resn2);
+    fi
+  done
 
-# find distance and generate valid files
-for resn1 in "${vet_resn1[@]}"; do
-  for resn2 in "${vet_resn2[@]}"; do
-    ./distanceCalculatorFileGenerator.sh $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff
-  done;
-done;
+  #verifica se tem dado no vetor de resn2 para poder realizar o calculo de distancia
+  if [ ${#vet_resn2[@]} -gt 0 ];
+  then
+    # find distance and generate valid files
+    # verificar possibilidade de retirada do for dentro de for para percorrer
+    for resn1 in "${vet_resn1[@]}"; do
+      for resn2 in "${vet_resn2[@]}"; do
+        executar_processo &
+        pids+=($!)
+        if [ ${#pids[@]} >= max_processos ]; 
+        then
+          for pid in "${pids[@]}"; do
+              wait "$pid"
+          done
+          pids=()
+        fi
+        for pid in "${pids[@]}"; do
+          wait "$pid"
+        done
+      done
+    done
+  fi
+fi
