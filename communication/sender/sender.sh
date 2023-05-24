@@ -21,6 +21,15 @@ send_file() {
     echo "File '$file' sent successfully."
 }
 
+# Function to encrypt a file
+encrypt_file() {
+    local file=$1
+    local user=$2
+    encrypted_file="$file.gpg"
+    gpg --encrypt --output $encrypted_file --recipient $user $file
+    echo "File $file encrypted successfully!"
+}
+
 ## Abaixo existe apenas um exemplo do uso das funcoes
 # # Get receiver's IP address and port number
 # receiver_ip="192.168.1.2"  # Replace with receiver's IP address
