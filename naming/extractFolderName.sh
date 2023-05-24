@@ -15,7 +15,7 @@ if [ -f "$file_path" ]; then
     while IFS=: read -r var1 var2 var3 var4 rest; do
         # Todas as variáveis batem com os parâmetros
         if [[ "$var1" == *"$1"* && "$var2" == *"$2"* && "$var3" == *"$3"* && "$var4" == *"$4"* ]]; then
-            # Extrai a informação após o quatro :
+            # Extrai a informação após o quarto :
             interation_name=${rest#*:*:*:*:}
 
             # Imprime o nome da interação
