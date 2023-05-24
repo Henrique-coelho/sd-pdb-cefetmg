@@ -64,8 +64,9 @@ if [ $sim -eq 1 ]; then
   # 80LYS-NZ_81ASN-OD1.ent
   filename="${resn1}${res1}-${atm1}_${resn2}${res2}-${atm2}.ent"
   
- # type_of_interaction = ./extractFolderName.sh $resn1 $res1 $resn2 $res2
- # path = "${pdb}/${type_of_interaction}/${filename}
+  # type_of_interaction=$(./extractFolderName.sh "$resn1" "$res1" "$resn2" "$res2")
+  # pdb_without_extension="${pdb%.ent}"
+  # path="${pdb_without_extension}/${type_of_interaction}/${filename}"
 
   egrep "^CRYST1" $pdb > $filename;
   egrep "^SCALE" $pdb >> $filename;
