@@ -60,6 +60,8 @@ if [ $sim -eq 1 ]; then
 
   # recovering info from the protein and save in new file
   # Create the file with the specified name pattern
+  # Ordem 80, resíduo LYS, átomo NZ
+  # 80LYS-NZ_81ASN-OD1.ent
   filename="${resn1}${res1}-${atm1}_${resn2}${res2}-${atm2}.ent"
 
   egrep "^CRYST1" $pdb > $filename;
