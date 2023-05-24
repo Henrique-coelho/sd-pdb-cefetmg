@@ -75,10 +75,11 @@ then
           done
           pids=()
         fi
-        for pid in "${pids[@]}"; do
-          wait "$pid"
-        done
       done
+    done
+    #caso termine o for mas nao chegue no maximo de processos, esse for garante que vai ser terminado
+    for pid in "${pids[@]}"; do
+      wait "$pid"
     done
   fi
 fi
