@@ -9,10 +9,21 @@
 # resn2="8"
 # cutoff=1
 
+usage ()
+{
+  echo 'Usage : Script <pdb_file_path> <res1> <atm1> <resn1> <res2> <atm2> <resn2> <cutoff>';
+  exit;
+}
+
+if [ "$#" -ne 8 ]
+then
+  usage;
+fi
+
 # file path and name
 pdb=$1
 
-# # information about interactor 1
+# information about interactor 1
 res1=$2
 atm1=$3
 resn1=$4
