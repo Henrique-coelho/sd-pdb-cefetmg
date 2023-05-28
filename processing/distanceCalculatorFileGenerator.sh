@@ -52,39 +52,48 @@ echo "A distância entre $res1 $atm1 $resn1 x($x1), y($y1), z($z1) e $res2 $atm2
 
 # comparing distance with cutoff
 
-#daqui para baixo foi o que o grupo entendeu que deveria ser o gera arquivo
+# daqui para baixo foi o que o grupo entendeu que deveria ser o gera arquivo
 sim=`echo "$distance<=$cutoff" | bc`
 if [ $sim -eq 1 ]; then
   # there's interaction
-  echo "$distance <= $cutoff";
+  echo "$distance <= $cutoff"
 
   # recovering info from the protein and save in new file
   # Create the file with the specified name pattern
   # Ordem 80, resíduo LYS, átomo NZ
   # 80LYS-NZ_81ASN-OD1.ent
   filename="${resn1}${res1}-${atm1}_${resn2}${res2}-${atm2}.ent"
-  
-  # type_of_interaction=$(./extractFolderName.sh "$resn1" "$res1" "$resn2" "$res2")
-  # pdb_without_extension="${pdb%.ent}"
-  # path="${pdb_without_extension}/${type_of_interaction}/${filename}"
 
-  egrep "^CRYST1" $pdb > $filename;
-  egrep "^SCALE" $pdb >> $filename;
+  type_of_interaction=$(./extractFolderName.sh "$resn1" "$res1" "$resn2" "$res2")
+  pdb_without_extension="${pdb%.ent}"
+  path="${pdb_without_extension}/${type_of_interaction}"
+
+  # Create the directory if it doesn't exist
+  mkdir -p "$path"
+
+  # Move the file to the directory
+  mv "$filename" "$path/$filename"
+
+  egrep "^CRYST1" "$pdb" > "$path/$filename"
+  egrep "^SCALE" "$pdb" >> "$path/$filename"
 
   # set numbers of past and future aminoacids related to interactor 1
-  resn1p=`echo "$resn1-1" | bc`;
-  resn1f=`echo "$resn1+1" | bc`;
+  resn1p=`echo "$resn1-1" | bc`
+  resn1f=`echo "$resn1+1" | bc`
 
   # set numbers of past and future aminoacids related to interactor 2
-  resn2p=`echo "$resn2-1" | bc`;
-  resn2f=`echo "$resn2+1" | bc`;
+  resn2p=`echo "$resn2-1" | bc`
+  resn2f=`echo "$resn2+1" | bc`
 
   # recovering rows of interactors and theirs related. Then save it
-  egrep "^ATOM *[0-9]+ *[A-Z]+[0-9]* *[A-Z]+[0-9]* *A *($resn1p|$resn1|$resn2f|$resn2p|$resn2|$resn2f)" $pdb >> $filename;
+  egrep "^ATOM *[0-9]+ *[A-Z]+[0-9]* *[A-Z]+[0-9]* *A *($resn1p|$resn1|$resn2f|$resn2p|$resn2|$resn2f)" "$pdb" >> "$path/$filename"
 
   # end of pdb file by default for new interaction file
-  echo "END" >> $filename;
+  echo "END" >> "$path/$filename"
+
+  # Zip the entire path
+  zip -r "$path.zip" "$path"
 else
   # there's no interaction
-  echo "$distance > $cutoff";
+  echo "$distance > $cutoff"
 fi
