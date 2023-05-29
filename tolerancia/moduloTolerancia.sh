@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$script=$*
+script=$*
 
 # data e horario do sistema 
 data=`date +'%Y-%m-%d|%H:%M'`
