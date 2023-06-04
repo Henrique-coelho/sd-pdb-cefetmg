@@ -60,26 +60,22 @@ then
   done
 
   #verifica se tem dado no vetor de resn2 para poder realizar o calculo de distancia
-  if [ ${#vet_resn2[@]} -gt 0 ];
-  then
-    # find distance and generate valid files
-    # verificar possibilidade de retirada do for dentro de for para percorrer
-    for resn1 in "${vet_resn1[@]}"; do
-      for resn2 in "${vet_resn2[@]}"; do
-        executar_processo &
-        pids+=($!)
-        if [ ${#pids[@]} >= max_processos ]; 
-        then
-          for pid in "${pids[@]}"; do
-              wait "$pid"
-          done
-          pids=()
-        fi
+  if [ ${#vet_resn2[@]} -gt 0 ]; then
+  # find distance and generate valid files
+  for resn1 in "${vet_resn1[@]}"; do
+    for resn2 in "${vet_resn2[@]}"; do
+      executar_processo &
+      pids+=($!)
+      # enquanto o numero de pids for igual ou maior que o maximo de processos permitidos, ele vai aguardar ate que algum processo termine, para que possa incluir um novo processo
+      while [ ${#pids[@]} -ge max_processos ]; do
+        wait
       done
     done
-    #caso termine o for mas nao chegue no maximo de processos, esse for garante que vai ser terminado
-    for pid in "${pids[@]}"; do
-      wait "$pid"
-    done
+  done
+
+  # Wait for any remaining processes to finish ( aqui é para quando sair do for, para garantir que todos os pids terminaram de executar antes de continuar o codigo )
+  for pid in "${pids[@]}"; do
+    wait "$pid"
+  done
   fi
 fi
