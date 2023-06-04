@@ -74,8 +74,8 @@ then
   done
 
   # Wait for any remaining processes to finish ( aqui é para quando sair do for, para garantir que todos os pids terminaram de executar antes de continuar o codigo )
-  for pid in "${pids[@]}"; do
-    wait "$pid"
+  while [ ${#pids[@]} -gt 0 ]; do
+    wait
   done
   fi
 fi
