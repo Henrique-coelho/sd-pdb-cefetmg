@@ -7,7 +7,7 @@ if [ $# -ne 4 ]; then
 fi
 
 # Arquivo com interações
-file_path="interacoes.csv"
+file_path="../interacoes.csv"
 
 # Arquivo pode não existir
 if [ -f "$file_path" ]; then
