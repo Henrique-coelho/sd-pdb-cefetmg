@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Check if GnuPG is installed
-#if ! command -v gpg &> /dev/null; then
-#    echo "GnuPG is not installed. Please install it first."
-#    exit 1
-#fi
+if ! command -v gpg &> /dev/null; then
+    echo "GnuPG is not installed. Please install it first."
+    exit 1
+fi
 
 # Create a Keydatails File
 generate_key_file(){
@@ -31,4 +31,4 @@ generate_key(){
     #sendfile $file-key #by communication code
 }
 
-generate_key "192.168.0.1"
+# generate_key "192.168.0.1"
