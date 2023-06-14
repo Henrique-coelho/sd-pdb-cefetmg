@@ -9,6 +9,8 @@ fi
 # Arquivo com interações
 file_path="../interacoes.csv"
 
+interation_name="Erro_Tipo_de_ligacao_nao_identificada";
+
 # Arquivo pode não existir
 if [ -f "$file_path" ]; then
     # Lê o arquivo e encontra a linha correspondente
@@ -16,15 +18,14 @@ if [ -f "$file_path" ]; then
         # Todas as variáveis batem com os parâmetros
         if [[ "$var1" == "$1 $2" || "$var2" == "$3 $4" ]]; then
             # Extrai a informação após o quarto :
-            interation_name=$var4
+            interation_name="$1-$2_$3-$4";
 
             # Imprime o nome da interação
-            echo "$interation_name"
-            exit 0
+            break;
         fi
     done < "$file_path"
 
-    echo "Erro - Tipo de ligação não identificado."
+    echo "$interation_name";
 else
-    echo "Erro - Não foi possível localizar $file_path."
+    echo "Erro - Nao foi possivel localizar $file_path."
 fi

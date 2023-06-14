@@ -35,8 +35,12 @@ cutoff=$6;
 execute_distance_calculator()
 {
     # parameters passed as $# in local scope
-    ./distanceCalculator.sh $1 $2 $3 $4 $5 $6 $7 $8
+    ./distanceCalculator.sh $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 }
+
+pdb_without_extension="${pdb%.ent}";
+root_path=${pdb_without_extension};
+mkdir -p "$root_path";
 
 there_is_resn2=$false;
 there_is_interaction=$false;
@@ -48,8 +52,14 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
         # in the exemple, so the script must look for LYS NZ 24 times
         # there is no residue elimination, one of then can match with many others
         
+        type_of_interaction=`../naming/extractFolderName.sh "$res1" "$atm1" "$res2" "$atm2"`;
+        path="$root_path/$type_of_interaction";
+
+        # Create the directory if it doesn't exist
+        mkdir -p "$path";
+        
         # Execute distance calculator
-        execute_distance_calculator $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff &
+        execute_distance_calculator $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff $path $pdb_without_extension &
         pids+=($!)
         
         # While pids for equals or greater then the maximum allowed process, wait to call another one
@@ -59,9 +69,7 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
 
         # if $atm2 $res2 found, script must continue first for
         there_is_resn2=$true;
-
-        ############# to do: count generated tail files;
-        there_is_interaction=$true; 
+ 
     done;
     if [ "$there_is_resn2" -eq "$false" ]; 
     then
@@ -75,16 +83,14 @@ for pid in "${pids[@]}"; do
     wait "$pid"
 done
 
-if [ "$there_is_interaction" -eq "$true" ];
+# find at least one generated file;
+there_is_interaction=$(du -s $root_path | awk '{ print $1 }');
+if [ "$there_is_interaction" -gt "4" ];
 then
+    echo "there is file";
     echo "ZIP";
     # if enters here, means that there is at least candidates
-    # there is the empty directory problem
-
-    ################################
-    # this part needs improvements #
-    ################################
 
     # zip the entire path
-    # zip -r "$path.zip" "$path";
+    zip -r "$root_path.zip" "$root_path";
 fi

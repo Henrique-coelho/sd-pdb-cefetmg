@@ -2,11 +2,11 @@
 
 usage ()
 {
-    echo "Usage : $0 <pdb_file_path> <res1> <atm1> <resn1> <res2> <atm2> <resn2> <cutoff>";
+    echo "Usage : $0 <pdb_file_path> <res1> <atm1> <resn1> <res2> <atm2> <resn2> <cutoff> <path> <pdb_without_extension>";
     exit;
 }
 
-if [ "$#" -ne 8 ];
+if [ "$#" -ne "10" ];
 then
     usage;
 fi
@@ -31,6 +31,10 @@ resn2=$7;
 # cutoff distance
 cutoff=$8;
 
+# file names
+path=$9;
+pdb_without_extension=${10};
+
 # recovering related x, y and z
 x1=`egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A *$resn1 " $pdb | awk '{ print substr($0,31,8) }'`;
 y1=`egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A *$resn1 " $pdb | awk '{ print substr($0,39,8) }'`;
@@ -51,6 +55,6 @@ there_is_interaction=`echo "$distance<=$cutoff" | bc`;
 if [ "$there_is_interaction" -eq "$true" ];
 then
     # call file generator to save valid interaction
-    ./fileGenerator.sh $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff
+    ./fileGenerator.sh $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff $path $pdb_without_extension
 fi
 # otherwise, do nothing
