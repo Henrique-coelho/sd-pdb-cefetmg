@@ -8,9 +8,9 @@ data=`date +'%Y-%m-%d|%H:%M'`
 ./insertfault_tolerancy.sh 1 INICIADO $data 111 $1 
 
 # executa tarefa e exporta resultado
-$script > statusTask.txt
+$script 2> statusTask.txt
 
-lineErro=`cat statusTask.txt | grep Erro | wc -l`
+lineErro=`cat statusTask.txt | wc -l`
 
 # data e horario apos o fim do processamento
 data=`date +'%Y-%m-%d|%H:%M'`
