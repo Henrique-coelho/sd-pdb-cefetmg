@@ -6,14 +6,29 @@ if ! command -v gpg &> /dev/null; then
     exit 1
 fi
 
+# Create a Keydatails File
+generate_key_file(){
+    systemID=$1
+    echo $systemID
+    cat > keydetails.txt << EOF
+    Key-Type: RSA
+    Key-Length: 2048
+    Name-Real: $systemID
+    Name-Email: $systemID@sd.com
+    Expire-Date: 0
+    %no-ask-passphrase
+    %no-protection
+EOF
+    echo "Key File created."
+}
+
 # Create a secret-key 
 generate_key(){
+    systemID=$1
     echo "Creating a GnuPG key."
-    gpg --generate-key
-    # echo "sd" #name
-    # echo "sd@exe.com" #email
-    # echo "o" #OK
+    generate_key_file $systemID
+    gpg --batch --gen-key keydetails.txt
     #sendfile $file-key #by communication code
 }
 
-# generate_key
+# generate_key "192.168.0.1"
