@@ -2,20 +2,24 @@
 
 usage ()
 {
-    echo "Usage : $0 <MYSQL_HOST> <MYSQL_USER> <MYSQL_PASSWORD> <MYSQL_DATABASE>";
+    echo "Usage : $0 <MYSQL_USER> <MYSQL_PASSWORD>";
     exit;
 }
 
-if [ "$#" -ne 4 ];
+if [ "$#" -ne 2 ];
 then
     usage;
 fi
 
 # MySQL connection details
-MYSQL_HOST=$1
-MYSQL_USER=$2
-MYSQL_PASSWORD=$3
-MYSQL_DATABASE=$4
+MYSQL_USER=$1
+MYSQL_PASSWORD=$2
+
+# Database creation query
+CREATE_DB="CREATE SCHEMA IF NOT EXISTS `proteins_db` DEFAULT CHARACTER SET utf8 ;
+
+USE `proteins_db` ;
+"
 
 # Table creation query
 TABLE_QUERY="CREATE TABLE interactions (
@@ -102,4 +106,4 @@ ALTER TABLE task
             ON DELETE CASCADE;"
 
 # Connect to MySQL and execute table creation query
-mysql -h "$MYSQL_HOST" -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" -e "$TABLE_QUERY"
+echo mysql -u "$1" -p"$2" "$CREATE_DB" -e "$TABLE_QUERY"
