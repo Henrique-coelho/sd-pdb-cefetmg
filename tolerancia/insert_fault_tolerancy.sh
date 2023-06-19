@@ -18,8 +18,7 @@ insert_into_mysql() {
 }
 
 if [ $# -lt 3 ]; then
-    echo "Erro: Faltam argumentos!"
-    echo "Uso: $0 valor_coluna1 valor_coluna2 valor_coluna3"
+    echo "Usage: $0 valor_coluna1 valor_coluna2 valor_coluna3"
     exit 1
 fi
 
