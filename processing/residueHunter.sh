@@ -68,7 +68,7 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
             for pid in "${pids[@]}"; do # para ir em cada um dos pids e descobrir qual pode ser excluido (no bash, o wait retorna o codigo de saida mas nao o PID finalizado, por isso precisamos percorrer a lista para descobrir qual é)
                 if ! kill -0 "$pid" 2>/dev/null; then # O comando kill -0 "$pid" verifica se o processo existe, mas não envia nenhum sinal ao processo. Se o processo não existir mais, o comando kill retornará um status de saída diferente de zero, indicando que o processo foi encerrado.
                     # O comando 2>/dev/null é para direcionar qualquer erro que possa ser dado para o "buraco negro" /dev/null, onde so irá ser descartado e não mostrará no console a mensagem de erro
-                    pids=("${pids[@]/$pid}")# Remove o PID do processo concluído do array pids
+                    pids=("${pids[@]/$pid}") # Remove o PID do processo concluído do array pids
                 fi
             done
             pids=("${pids[@]}") # Remove os elementos vazios do array pids
