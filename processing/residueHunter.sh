@@ -71,6 +71,7 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
                     pids=("${pids[@]/$pid}")# Remove o PID do processo concluído do array pids
                 fi
             done
+            pids=("${pids[@]}") # Remove os elementos vazios do array pids
         done
 
         # if $atm2 $res2 found, script must continue first for
@@ -93,6 +94,7 @@ while [ ${#pids[@]} -gt 0 ]; do
             pids=("${pids[@]/$pid}")
         fi
     done
+    pids=("${pids[@]}") # Remove os elementos vazios do array pids
 done
 
 # find at least one generated file;
