@@ -14,7 +14,7 @@ COLUMN5_VALUE="$5"
 
 insert_into_mysql() {
     local query="INSERT INTO $TABLE_NAME (interactions_id, task_Status, last_modification, system_id, task_name) VALUES ($COLUMN1_VALUE, '$COLUMN2_VALUE', '$COLUMN3_VALUE',$COLUMN4_VALUE,'$COLUMN5_VALUE');"
-    mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -e "$query"
+    mysql -h -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -e "$query"
 }
 
 if [ $# -lt 3 ]; then
