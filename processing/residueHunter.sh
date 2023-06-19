@@ -15,8 +15,8 @@ pids=()
 max_processes=5 # Architeture team must define max number for process
 
 # boolean
-false=0;
-true=1;
+is_false=0;
+is_true=1;
 
 # file path
 pdb=$1;
@@ -42,8 +42,8 @@ pdb_without_extension="${pdb%.ent}";
 root_path=${pdb_without_extension};
 mkdir -p "$root_path";
 
-there_is_resn2=$false;
-there_is_interaction=$false;
+there_is_resn2=$is_false;
+there_is_interaction=$is_false;
 for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr($0,23,4) }'`; do
     # in the exemple, there are 24 SER OG in file
     # if $atm1 $res1 not found, the script will not loop second for
@@ -64,14 +64,20 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
         
         # While pids for equals or greater then the maximum allowed process, wait to call another one
         while [ ${#pids[@]} -ge $max_processes ]; do
-            wait
+            wait -n # para aguardar qualquer processo que esta sendo executado em segundo plano seja executado
+            for pid in "${pids[@]}"; do # para ir em cada um dos pids e descobrir qual pode ser excluido (no bash, o wait retorna o codigo de saida mas nao o PID finalizado, por isso precisamos percorrer a lista para descobrir qual é)
+                if ! kill -0 "$pid" 2>/dev/null; then # O comando kill -0 "$pid" verifica se o processo existe, mas não envia nenhum sinal ao processo. Se o processo não existir mais, o comando kill retornará um status de saída diferente de zero, indicando que o processo foi encerrado.
+                    # O comando 2>/dev/null é para direcionar qualquer erro que possa ser dado para o "buraco negro" /dev/null, onde so irá ser descartado e não mostrará no console a mensagem de erro
+                    pids=("${pids[@]/$pid}")# Remove o PID do processo concluído do array pids
+                fi
+            done
         done
 
         # if $atm2 $res2 found, script must continue first for
-        there_is_resn2=$true;
+        there_is_resn2=$is_true;
  
     done;
-    if [ "$there_is_resn2" -eq "$false" ]; 
+    if [ "$there_is_resn2" -eq "$is_false" ]; 
     then
         # there is no resn2 applicants, then first for must stop
         break;
@@ -79,8 +85,14 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
 done;
 
 # Wait for any remaining processes to finish
-for pid in "${pids[@]}"; do
-    wait "$pid"
+while [ ${#pids[@]} -gt 0 ]; do
+    wait -n 
+    for pid in "${pids[@]}"; do
+        if ! kill -0 "$pid" 2>/dev/null; then 
+            # Remove o PID do processo concluído do array pids
+            pids=("${pids[@]/$pid}")
+        fi
+    done
 done
 
 # find at least one generated file;
