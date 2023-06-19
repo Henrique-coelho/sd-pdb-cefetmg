@@ -3,7 +3,7 @@
 # Check if GnuPG is installed
 if ! command -v gpg &> /dev/null; then
     echo "GnuPG is not installed. Please install it first."
-    exit 1
+    sudo apt install gpg -y 
 fi
 
 # Create a Keydatails File
