@@ -86,30 +86,8 @@ done
 # find at least one generated file;
 there_is_interaction=$(du -s $root_path | awk '{ print $1 }');
 if [ "$there_is_interaction" -gt "4" ];
-then
-    echo "there is file";
-    echo "ZIP";
-    # if enters here, means that there is at least candidates
-
-  #verifica se tem dado no vetor de resn2 para poder realizar o calculo de distancia
-  if [ ${#vet_resn2[@]} -gt 0 ]; then
-  # find distance and generate valid files
-  for resn1 in "${vet_resn1[@]}"; do
-    for resn2 in "${vet_resn2[@]}"; do
-      executar_processo &
-      pids+=($!)
-      # enquanto o numero de pids for igual ou maior que o maximo de processos permitidos, ele vai aguardar ate que algum processo termine, para que possa incluir um novo processo
-      while [ ${#pids[@]} -ge max_processos ]; do
-        wait
-      done
-    done
-  done
-
-  # Wait for any remaining processes to finish ( aqui é para quando sair do for, para garantir que todos os pids terminaram de executar antes de continuar o codigo )
-  while [ ${#pids[@]} -gt 0 ]; do
-    wait
-  done
-  fi
+then 
+  # if enters here, means that there is at least candidates
   # zip the entire path
   zip -r "$root_path.zip" "$root_path";
 fi
