@@ -56,5 +56,6 @@ if [ "$there_is_interaction" -eq "$true" ];
 then
     # call file generator to save valid interaction
     ./fileGenerator.sh $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff $path $pdb_without_extension
+    # Update local database
 fi
 # otherwise, do nothing

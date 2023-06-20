@@ -104,4 +104,7 @@ then
   # if enters here, means that there is at least candidates
   # zip the entire path
   zip -r "$root_path.zip" "$root_path";
+  # Dúvida: Nesse momento já sabemos as informações de conexão com o servidor?
+  # ../replication/dump.sh create localhost "MYSQL_USERNAME" "MYSQL_PASSWORD" "DATABASE_NAME";
+  # ../replication/send.sh;
 fi
