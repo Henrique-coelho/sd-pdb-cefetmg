@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# COMUNICATION PART
+# . ../communication/listener/listener.sh
+# message=receive_message;
+# echo "main start";
+# echo "$message";
+
+# pdb_file=$(egrep ":" $message)
+# pdb_file=$(egrep ":" $message)
+# pdb_file=$(egrep ":" $message)
+# pdb_file=$(egrep ":" $message)
+# pdb_file=$(egrep ":" $message)
+
 # gpg key
 ../security/initialConfig.sh
 
