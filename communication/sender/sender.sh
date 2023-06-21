@@ -17,6 +17,7 @@ send_file() {
         echo "Error: File '$file' does not exist."
         exit 1
     fi
+    encrypt_file $file $port
     nc -q 0 -N $ip $port < $file
     echo "File '$file' sent successfully."
 }

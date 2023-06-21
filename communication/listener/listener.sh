@@ -9,7 +9,8 @@ receive_message() {
 # Function to receive a file
 receive_file() {
     local port=$1
-    nc -l -p $port > received_file.txt
+    nc -l -p $port > received_file.gpg
+    decrypt_file received_file.gpg
 }
 
 # Function to decrypt a file
