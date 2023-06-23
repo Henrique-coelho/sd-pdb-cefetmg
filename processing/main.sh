@@ -1,16 +1,12 @@
 #!/bin/bash
 
 # COMUNICATION PART
-# . ../communication/listener/listener.sh
-# message=receive_message;
+. ../communication/listener/listener.sh
+message=receive_message;
 # echo "main start";
 # echo "$message";
 
-# pdb_file=$(egrep ":" $message)
-# pdb_file=$(egrep ":" $message)
-# pdb_file=$(egrep ":" $message)
-# pdb_file=$(egrep ":" $message)
-# pdb_file=$(egrep ":" $message)
+IFS=':' read -r serverId pdb_file res1 atm1 res2 atm2 cutoff <<< "$message"
 
 # gpg key
 ../security/initialConfig.sh
