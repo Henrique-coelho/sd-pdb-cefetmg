@@ -1,9 +1,9 @@
 #!/bin/bash
 
 DB_HOST="localhost"
-DB_USER="user"
-DB_PASS="password"
-DB_NAME="dbName"
+DB_USER="aluno"
+DB_PASS="123456"
+DB_NAME="proteins_db"
 
 TABLE_NAME="Task"
 COLUMN1_VALUE="$1"
