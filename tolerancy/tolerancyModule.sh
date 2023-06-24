@@ -1,6 +1,7 @@
 #!/bin/bash
 
-script=$*
+interaction_id=`echo "$@" | sed 's/ .*//'`
+script=`echo "$@" | sed 's/^[^ ]* //'`
 
 # data e horario do sistema 
 data=`date +'%Y-%m-%d|%H:%M'`;
@@ -15,7 +16,7 @@ nome_status=$nome_script"_status.txt";
 
 executa_script(){
 	# executa tarefa e exporta resultado
-	$script > $nome_saida 2> $nome_status
+	./$script > $nome_saida 2> $nome_status
 
 	# soma erros, da saida de erro e saida padrao
 	erros=`cat $nome_status | wc -l`;
@@ -27,13 +28,13 @@ executa_script(){
 }
 
 # insere tarefa na base de dados
-./insertTask.sh 1 INICIADO $data $system_id $nome_script 
+./insertTask.sh $interaction_id INICIADO $data $system_id $nome_script 
 
 # primeira execucao do script
 executa_script
 
 if [ $qtd_erros -gt 0 ]; then
-./updateTask.sh 1 PENDENTE $data $system_id $nome_script
+./updateTask.sh $interaction_id PENDENTE $data $system_id $nome_script
 
 	CONTADOR=0;
 
@@ -41,18 +42,18 @@ if [ $qtd_erros -gt 0 ]; then
 		executa_script
 
 		if [ $qtd_erros -eq 0 ]; then
-			./updateTask.sh 1 CONCLUIDO $data $system_id $nome_script
+			./updateTask.sh $interaction_id CONCLUIDO $data $system_id $nome_script
 			break
 		if
 
-		./updateTask.sh 1 PENDENTE $data $system_id $nome_script
+		./updateTask.sh $interaction_id PENDENTE $data $system_id $nome_script
 
 		let CONTADOR=CONTADOR+1; 
 	done
 
 else
 
-./updateTask.sh 1 CONCLUIDO $data $system_id $nome_script
+./updateTask.sh $interaction_id CONCLUIDO $data $system_id $nome_script
 
 fi
 
