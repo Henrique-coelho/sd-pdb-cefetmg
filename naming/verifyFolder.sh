@@ -1,24 +1,39 @@
 #!/bin/bash
 
-MAX_FILES_IN_FOLDER = 1000000
-
+MAX_FILES_IN_FOLDER=10000
 # recebe o path do diretório como argumento
 path=$1
 
-# obtém a quantity de arquivos no diretório
-quantity=$(find "$path" -maxdepth 1 -type f | wc -l)
-
-# verifica se a quantity de arquivos é menor que 1 milhão
-if [ "$quantity" -lt MAX_FILES_IN_FOLDER ]; then
-  echo "file_name"
+# verifica a existência da pasta
+if [ ! -d $path ]; then
+  echo "$path";
+  exit 0;
 else
-  number=1
-  while true; do
-    new_name="file_name_$number"
-    if [ ! -e "$path/$new_name" ] && [ "$(find "$path/$new_name" -maxdepth 1 -type f | wc -l)" -lt MAX_FILES_IN_FOLDER ]; then
-      echo "$new_name"
-      break
-    fi
-    number=$((number+1))
-  done
+  value="$(find "$path" -maxdepth 1 -type f | wc -l)";
+  
+  # verifica se a quantidade de arquivos é menor que 1 milhão
+  if [ $value -lt $MAX_FILES_IN_FOLDER ]; then
+    echo "$path";
+    exit 0;
+  fi
 fi
+
+number=1
+while true; do
+  new_path="$path"_"$number"
+  
+  # verifica a existência da pasta
+  if [ ! -d $new_path ]; then
+    echo "$new_path";
+    exit 0;
+  else 
+    new_value="$(find "$new_path" -maxdepth 1 -type f | wc -l)";
+
+    # verifica se a quantidade de arquivos é menor que 1 milhão
+    if [ $new_value -lt $MAX_FILES_IN_FOLDER ]; then
+      echo "$new_value";
+      break;
+    fi
+  fi
+  number=$((number+1))
+done
