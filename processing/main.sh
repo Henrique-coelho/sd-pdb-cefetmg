@@ -2,25 +2,34 @@
 
 # COMUNICATION PART
 . ../communication/listener/listener.sh
-message=receive_message;
+#receive_message "12345"
+#message=$?
 # echo "main start";
-# echo "$message";
+#echo "$message";
+
+message="172.21.0.1:4hhb:SER:OG:LYS:NZ:500"
 
 IFS=':' read -r serverId pdb_file res1 atm1 res2 atm2 cutoff <<< "$message"
 
 # gpg key
-../security/initialConfig.sh
+#../security/initialConfig.sh
 
 # create table
-../architecture/createTables.sh
+#../architecture/createTables.sh
 
 # execute backup after n minutes? (cronjob)
 
 # get pdb files
-../communication/downloader/downloader.sh # <file_code> /proteins
+. ../communication/downloader/downloader.sh # <file_code> /proteins
 
-# must remove XRAY based pdb file
-for file in `grep "EXPERIMENT TYPE" * | cut -d: -f1`; do   
+#Conferir sintaxe no path de save
+download_file $pdb_file "../pdb_files/${pdb_file}.pdb"
+
+#só pra garantir
+sleep 1
+
+# must remove XRAY based pdb file (pasta pdb_files)
+for file in `grep "EXPERIMENT TYPE" ../pdb_files/* | cut -d: -f1`; do   
     if [ "$file" != "main.sh" ]; then
         if [ "`grep "X-RAY" $file | cut -d: -f1`" ]; then
             echo $file; 
@@ -30,8 +39,12 @@ for file in `grep "EXPERIMENT TYPE" * | cut -d: -f1`; do
     fi
 done
 
-# call torance
-../tolerancia/moduloTolerancia.sh # <param>
+echo "ok"
 
-# call replication (cronjob)
-../replication/dump.sh # <param>
+# # call torance
+#../tolerancy/insertTask.sh ./processing/residueHunter.sh "../pdb_files/$pdb_file" $res1 $atm1 $res2 $atm2 $cutoff
+./residueHunter.sh "../pdb_files/${pdb_file}" $res1 $atm1 $res2 $atm2 $cutoff
+
+
+# # call replication (cronjob)
+# ../replication/dump.sh # <param>
