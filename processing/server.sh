@@ -6,13 +6,14 @@ serverId=$(hostname -I);
 . ../communication/sender/sender.sh
 . ../communication/listener/listener.sh
 
-pdb_file="perguntar qual eh ao usuario"; 
-res1="perguntar qual eh ao usuario"; 
-atm1="perguntar qual eh ao usuario"; 
-res2="perguntar qual eh ao usuario"; 
-atm2="perguntar qual eh ao usuario"; 
-cutoff="perguntar qual eh ao usuario"; 
+pdb_file="4hhb"; 
+res1="SER"; 
+atm1="OG"; 
+res2="LYS"; 
+atm2="NZ"; 
+cutoff="500"; 
+machine="172.29.71.102";
 
-send_message "$(hostname -I)" "12345" "$serverId:$pdb_file:$res1:$atm1:$res2:$atm2:$cutoff"; 
+send_message "$machine" "12345" "$serverId:$pdb_file:$res1:$atm1:$res2:$atm2:$cutoff"; 
 
-./storage.sh "12346"
+./storage.sh "12346";

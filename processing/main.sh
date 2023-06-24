@@ -2,20 +2,20 @@
 
 # COMUNICATION PART
 . ../communication/listener/listener.sh
-#receive_message "12345"
-#message=$?
+receive_message "12345"
+message=$?
 # echo "main start";
-#echo "$message";
+# echo "$message";
 
-message="172.21.0.1:4hhb:SER:OG:LYS:NZ:500"
+# message="172.21.0.1:4hhb:SER:OG:LYS:NZ:500"
 
 IFS=':' read -r serverId pdb_file res1 atm1 res2 atm2 cutoff <<< "$message"
 
 # gpg key
-#../security/initialConfig.sh
+../security/initialConfig.sh
 
 # create table
-#../architecture/createTables.sh
+../architecture/createTables.sh
 
 # execute backup after n minutes? (cronjob)
 
@@ -25,7 +25,7 @@ IFS=':' read -r serverId pdb_file res1 atm1 res2 atm2 cutoff <<< "$message"
 #Conferir sintaxe no path de save
 download_file $pdb_file "../pdb_files/${pdb_file}.pdb"
 
-#só pra garantir
+#só pra garantir download
 sleep 1
 
 # must remove XRAY based pdb file (pasta pdb_files)
@@ -42,13 +42,13 @@ done
 echo "ok"
 
 # # call torance
-#../tolerancy/insertTask.sh ./processing/residueHunter.sh "../pdb_files/$pdb_file" $res1 $atm1 $res2 $atm2 $cutoff
-./residueHunter.sh "../pdb_files/${pdb_file}" $res1 $atm1 $res2 $atm2 $cutoff
+../tolerancy/insertTask.sh ./processing/residueHunter.sh "../pdb_files/$pdb_file" $res1 $atm1 $res2 $atm2 $cutoff
+# ./residueHunter.sh "../pdb_files/${pdb_file}" $res1 $atm1 $res2 $atm2 $cutoff
 fileZip = "${pdb_file}.zip"
 
 
 # # call replication (cronjob)
-# ../replication/dump.sh # <param>
+../replication/dump.sh # <param>
 
 # call to storage
 . ../communication/sender/sender.sh
