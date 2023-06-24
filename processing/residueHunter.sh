@@ -61,8 +61,9 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
         # Execute distance calculator
         execute_distance_calculator $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff $path $pdb_without_extension &
         
+        #echo "Waiting for processes to finish: $(ps -ef | grep 'distanceCalculator' | wc -l)"
         # While pids for equals or greater then the maximum allowed process, wait to call another one
-        while [ "$(pgrep -c 'distanceCalculator.sh')" -ge "$max_processes" ]; do
+        while [ "$(ps -ef | grep 'distanceCalculator' | wc -l)" -ge "$max_processes" ]; do
             sleep 1 # To avoid excessive CPU usage while waiting for processes
         done
 
@@ -78,7 +79,7 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
 done;
 
 # Wait for any remaining processes to finish
-while [ "$(pgrep -c 'distanceCalculator.sh')" -gt 0 ]; do
+while [ "$(ps -ef | grep 'distanceCalculator' | wc -l)" -gt 0 ]; do
     sleep 1 # To avoid excessive CPU usage while waiting for processes
 done
 
