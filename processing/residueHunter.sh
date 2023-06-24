@@ -11,6 +11,7 @@ then
     usage;
 fi
 
+
 max_processes=420 #O numero foi definido pensando na possibilidade maxima que o id de atomo pode atingir (9999) 
 #considerando que 6 é a atomos por arquivo e 4 a quantidade de atomos na cadeia principal, fizemos a divisao de
 #9999/24 chegando ao numero aproximado de 420
@@ -40,17 +41,24 @@ execute_distance_calculator()
     ./distanceCalculator.sh $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 }
 
-pdb_without_extension="${pdb%.ent}";
-root_path=${pdb_without_extension};
+filename="${pdb##*/}"
+pdb_without_extension="${filename%.ent}"
+
+#pdb_without_extension="${pdb%.ent}";
+#root_path=${pdb_without_extension};
+root_path=${pdb%.ent};
 mkdir -p "$root_path";
 
 there_is_resn2=$is_false;
 there_is_interaction=$is_false;
-for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr($0,23,4) }'`; do
+
+#echo "execute distance calculator ok (rh) PDB WITHOUT EXTENSION-> $pdb_without_extension"
+
+for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" ${pdb}.pdb | awk '{ print substr($0,23,4) }'`; do
     # in the exemple, there are 24 SER OG in file
     # if $atm1 $res1 not found, the script will not loop second for
     
-    for resn2 in `egrep "^ATOM *[0-9]+ *$atm2 *$res2 *A" $pdb | awk '{ print substr($0,23,4) }'`;do
+    for resn2 in `egrep "^ATOM *[0-9]+ *$atm2 *$res2 *A" ${pdb}.pdb | awk '{ print substr($0,23,4) }'`;do
         # in the exemple, so the script must look for LYS NZ 24 times
         # there is no residue elimination, one of then can match with many others
         
@@ -61,7 +69,7 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
         mkdir -p "$path";
         
         # Execute distance calculator
-        execute_distance_calculator $pdb $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff $path $pdb_without_extension &
+        execute_distance_calculator "${pdb}.pdb" $res1 $atm1 $resn1 $res2 $atm2 $resn2 $cutoff $path $pdb_without_extension &
         
         #echo "Waiting for processes to finish: $(ps -ef | grep 'distanceCalculator' | wc -l)"
         # While pids for equals or greater then the maximum allowed process, wait to call another one
@@ -80,10 +88,14 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
     fi
 done;
 
+#echo "out double for"
+
 # Wait for any remaining processes to finish
 while [ "$(ps -ef | grep 'distanceCalculator' | wc -l)" -gt 0 ]; do
     sleep 1 # To avoid excessive CPU usage while waiting for processes
 done
+
+echo "after while"
 
 # find at least one generated file;
 there_is_interaction=$(du -s $root_path | awk '{ print $1 }');
