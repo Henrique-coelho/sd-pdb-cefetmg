@@ -11,7 +11,9 @@ then
     usage;
 fi
 
-max_processes=5 # Architeture team must define max number for process
+max_process=420 #O numero foi definido pensando na possibilidade maxima que o id de atomo pode atingir (9999) 
+#considerando que 6 é a atomos por arquivo e 4 a quantidade de atomos na cadeia principal, fizemos a divisao de
+#9999/24 chegando ao numero aproximado de 420
 
 # boolean
 is_false=0;
@@ -63,7 +65,7 @@ for resn1 in `egrep "^ATOM *[0-9]+ *$atm1 *$res1 *A" $pdb | awk '{ print substr(
         
         #echo "Waiting for processes to finish: $(ps -ef | grep 'distanceCalculator' | wc -l)"
         # While pids for equals or greater then the maximum allowed process, wait to call another one
-        while [ "$(ps -ef | grep 'distanceCalculator' | wc -l)" -ge "$max_processes" ]; do
+        while [ "$(ps -ef | grep 'distanceCalculator' | wc -l)" -ge "$max_process" ]; do
             sleep 1 # To avoid excessive CPU usage while waiting for processes
         done
 
