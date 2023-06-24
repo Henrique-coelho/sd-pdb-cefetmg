@@ -44,7 +44,13 @@ echo "ok"
 # # call torance
 #../tolerancy/insertTask.sh ./processing/residueHunter.sh "../pdb_files/$pdb_file" $res1 $atm1 $res2 $atm2 $cutoff
 ./residueHunter.sh "../pdb_files/${pdb_file}" $res1 $atm1 $res2 $atm2 $cutoff
+fileZip = "${pdb_file}.zip"
 
 
 # # call replication (cronjob)
 # ../replication/dump.sh # <param>
+
+# call to storage
+. ../communication/sender/sender.sh
+    #usando outra porta para enviar o arquivo
+send_file serverId "12346" $fileZip
