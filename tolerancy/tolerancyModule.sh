@@ -1,7 +1,8 @@
 #!/bin/bash
 
-interaction_id=`echo "$@" | sed 's/ .*//'`
-script=`echo "$@" | sed 's/^[^ ]* //'`
+#separando script de id de interacao
+interaction_id=`echo "$@" | sed 's/ .*//'`;
+script=`echo "$@" | sed 's/^[^ ]* //'`;
 
 # data e horario do sistema 
 data=`date +'%Y-%m-%d|%H:%M'`;
@@ -34,7 +35,7 @@ executa_script(){
 executa_script
 
 if [ $qtd_erros -gt 0 ]; then
-./updateTask.sh $interaction_id PENDENTE $data $system_id $nome_script
+	./updateTask.sh $interaction_id PENDENTE $data $system_id $nome_script
 
 	CONTADOR=0;
 

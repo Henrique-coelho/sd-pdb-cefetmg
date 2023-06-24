@@ -8,6 +8,6 @@ O diagrama baixo representa o funcionamento do nosso módulo:
 ## Como utilizar ?
 Para utilizar este módulo, basta fazer a chamada deste módulo, e informar na mesma linha o outro script e argumentos utilizados.
 ```
-  ./tolerancyModule.sh [id-interacao] ./[nome-modulo2] [arg1] [arg2] ... [argN]
+  ./tolerancyModule.sh [id-interacao] [nome-modulo2] [arg1] [arg2] ... [argN]
 ```
 
