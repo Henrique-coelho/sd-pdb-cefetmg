@@ -15,95 +15,78 @@ fi
 MYSQL_USER=$1
 MYSQL_PASSWORD=$2
 
-# Database creation query
-CREATE_DB="CREATE SCHEMA IF NOT EXISTS `proteins_db` DEFAULT CHARACTER SET utf8 ;
+# Database creation query and table creation query
+TABLE_QUERY="
+CREATE TABLE Interactions
+  (
+    ID         VARCHAR (100) NOT NULL ,
+    Protein_ID VARCHAR (100) NOT NULL ,
+    Url        VARCHAR (100) NOT NULL ,
+    Inter_1    VARCHAR (100) NOT NULL ,
+    Inter_2    VARCHAR (100) ,
+    Type_ID    VARCHAR (100) NOT NULL ,
+    Status     VARCHAR (20) DEFAULT 'PENDING' NOT NULL
+  ) ;
+ALTER TABLE Interactions ADD CHECK ( Status IN ('DONE', 'ERROR', 'PENDING', 'PROCESSING')) ;
+ALTER TABLE Interactions ADD CONSTRAINT Interactions_PK PRIMARY KEY ( ID ) ;
 
-USE `proteins_db` ;
+
+CREATE TABLE Log
+  (
+    User_ID   VARCHAR (100) NOT NULL ,
+    System_ID VARCHAR (100) NOT NULL ,
+    "Date"    DATE NOT NULL
+  ) ;
+ALTER TABLE Log ADD CONSTRAINT Log_PK PRIMARY KEY ( "Date" ) ;
+
+
+CREATE TABLE Proteins
+  (
+    ID     VARCHAR (100) NOT NULL ,
+    Status VARCHAR (10) DEFAULT 'PENDING' NOT NULL
+  ) ;
+ALTER TABLE Proteins ADD CHECK ( Status IN ('DONE', 'PENDING', 'PROCESSING')) ;
+ALTER TABLE Proteins ADD CONSTRAINT Proteins_PK PRIMARY KEY ( ID ) ;
+
+
+CREATE TABLE Task
+  (
+    Interactions_ID   VARCHAR (100) NOT NULL ,
+    Status            VARCHAR (20) DEFAULT 'PENDING' NOT NULL ,
+    Last_Modification DATE NOT NULL ,
+    System_ID         VARCHAR (100) NOT NULL ,
+    Name              VARCHAR (50)
+  ) ;
+ALTER TABLE Task ADD CHECK ( Status IN ('DONE', 'PENDING', 'PROCESSSING')) ;
+ALTER TABLE Task ADD CONSTRAINT Task_PK PRIMARY KEY ( Interactions_ID, Last_Modification, System_ID ) ;
+
+
+CREATE TABLE Type
+  (
+    ID          VARCHAR (100) NOT NULL ,
+    Description VARCHAR (120)
+  ) ;
+ALTER TABLE Type ADD CONSTRAINT Type_PK PRIMARY KEY ( ID ) ;
+
+
+CREATE TABLE "User"
+  (
+    ID       VARCHAR (100) NOT NULL ,
+    Password VARCHAR (8) NOT NULL ,
+    Type     VARCHAR (20) NOT NULL
+  ) ;
+ALTER TABLE "User" ADD CONSTRAINT User_PK PRIMARY KEY ( ID ) ;
+
+
+ALTER TABLE Interactions ADD CONSTRAINT Interactions_Proteins_FK FOREIGN KEY ( Protein_ID ) REFERENCES Proteins ( ID ) ON
+DELETE CASCADE ;
+
+ALTER TABLE Interactions ADD CONSTRAINT Interactions_Type_FK FOREIGN KEY ( Type_ID ) REFERENCES Type ( ID ) ON
+DELETE CASCADE ;
+
+ALTER TABLE Log ADD CONSTRAINT Log_User_FK FOREIGN KEY ( User_ID ) REFERENCES "User" ( ID ) ;
+
+ALTER TABLE Task ADD CONSTRAINT Task_Interactions_FK FOREIGN KEY ( Interactions_ID ) REFERENCES Interactions ( ID ) ;
 "
 
-# Table creation query
-TABLE_QUERY="CREATE TABLE interactions (
-    id         NUMBER(50) NOT NULL,
-    protein_id NUMBER(50, 10) NOT NULL,
-    url        VARCHAR2(100 CHAR),
-    inter_1    VARCHAR2(10 CHAR) NOT NULL,
-    inter_2    VARCHAR2(10 CHAR) NOT NULL,
-    type_id    NUMBER(50) NOT NULL,
-    status     VARCHAR2(50 CHAR) DEFAULT 'PENDING' NOT NULL
-);
-
-ALTER TABLE interactions
-    ADD CHECK ( status IN ( 'DONE', 'ERROR', 'PENDING', 'PROCESSING' ) );
-
-ALTER TABLE interactions ADD CONSTRAINT interactions_pk PRIMARY KEY ( id );
-
-CREATE TABLE log (
-    user_id   NUMBER(50) NOT NULL,
-    system_id NUMBER(50) NOT NULL,
-    data      DATE NOT NULL
-);
-
-ALTER TABLE log ADD CONSTRAINT log_pk PRIMARY KEY ( data );
-
-CREATE TABLE proteins (
-    proteins_id NUMBER(10)
-        CONSTRAINT nnc_proteins_id NOT NULL,
-    status      VARCHAR2(10 CHAR) DEFAULT 'PENDING'
-        CONSTRAINT nnc_proteins_status NOT NULL
-);
-
-ALTER TABLE proteins
-    ADD CHECK ( status IN ( 'DONE', 'PENDING', 'PROCESSING' ) );
-
-ALTER TABLE proteins ADD CONSTRAINT proteins_pk PRIMARY KEY ( proteins_id );
-
-CREATE TABLE task (
-    iteractions_id    NUMBER(50) NOT NULL,
-    task_status       VARCHAR2(10 CHAR) DEFAULT 'PENDING' NOT NULL,
-    last_modification VARCHAR2(10 CHAR),
-    system_id         NUMBER(50) NOT NULL,
-    task_name         VARCHAR2(50 CHAR)
-);
-
-ALTER TABLE task
-    ADD CHECK ( task_status IN ( '', 'DONE', 'PENDING', 'PROCESSING' ) );
-
-ALTER TABLE task ADD CONSTRAINT task_pk PRIMARY KEY ( iteractions_id );
-
-CREATE TABLE type (
-    id          NUMBER(10) NOT NULL,
-    description VARCHAR2(50 CHAR)
-);
-
-ALTER TABLE type ADD CONSTRAINT type_pk PRIMARY KEY ( id );
-
-CREATE TABLE "user" (
-    id       NUMBER(50) NOT NULL,
-    password NUMBER(50) NOT NULL,
-    type     VARCHAR2(50 CHAR) NOT NULL
-);
-
-ALTER TABLE "user" ADD CONSTRAINT user_pk PRIMARY KEY ( id );
-
-ALTER TABLE interactions
-    ADD CONSTRAINT interactions_proteins_fk FOREIGN KEY ( protein_id )
-        REFERENCES proteins ( proteins_id )
-            ON DELETE CASCADE;
-
-ALTER TABLE interactions
-    ADD CONSTRAINT interactions_type_fk FOREIGN KEY ( type_id )
-        REFERENCES type ( id )
-            ON DELETE CASCADE;
-
-ALTER TABLE log
-    ADD CONSTRAINT log_user_fk FOREIGN KEY ( user_id )
-        REFERENCES "user" ( id )
-            ON DELETE CASCADE;
-
-ALTER TABLE task
-    ADD CONSTRAINT task_interactions_fk FOREIGN KEY ( iteractions_id )
-        REFERENCES interactions ( id )
-            ON DELETE CASCADE;"
-
-# Connect to MySQL and execute table creation query
-echo mysql -u "$1" -p"$2" "$CREATE_DB" -e "$TABLE_QUERY"
+echo $TABLE_QUERY |  mysql -u "$1" -p"$2" -D "proteinDB"
