@@ -6,7 +6,7 @@ serverId=$(hostname -I);
 . ../communication/sender/sender.sh
 . ../communication/listener/listener.sh
 
-pdb_file="4hhb"; 
+pdb_file="4hhb.pdb"; 
 res1="SER"; 
 atm1="OG"; 
 res2="LYS"; 
